@@ -182,13 +182,15 @@ footer { background:#332524; color:rgba(255,255,255,0.7); padding:60px 0 0; }
 @media (max-width:768px) {
   .nav-links { display:none; position:absolute; top:100%; left:0; right:0; flex-direction:column; background:#fff; padding:20px 24px; gap:16px; border-bottom:1px solid #f0ece8; box-shadow:0 10px 30px rgba(51,37,36,0.06); }
   .nav-links.open { display:flex; }
-  .nav-links a { font-size:15px; padding:6px 0; }
-  .hamburger { display:flex; }
+  .nav-links a { font-size:15px; padding:12px 0; min-height:48px; display:flex; align-items:center; }
+  .nav-btn { padding:14px 28px; min-height:48px; display:flex; align-items:center; justify-content:center; }
+  .hamburger { display:flex; min-height:48px; min-width:48px; align-items:center; justify-content:center; }
   .hero-content .inner { max-width:100%; }
   .hero-overlay { background:linear-gradient(0deg,rgba(51,37,36,0.8) 0%,rgba(51,37,36,0.4) 40%,transparent 70%); }
   .bridal-card img { height:220px; }
   .footer-grid { grid-template-columns:1fr; gap:30px; }
   .top-bar { font-size:12px; }
+  .top-bar a { padding:8px 0; display:inline-block; min-height:48px; line-height:48px; }
   .top-bar .tb-right { display:none; }
   .hero-content h1 { font-size:30px; }
   .hero-content h1::after { width:50px; }
@@ -201,12 +203,20 @@ footer { background:#332524; color:rgba(255,255,255,0.7); padding:60px 0 0; }
 
   .hero-content h1 { font-size:26px; }
   .hero-content p { font-size:13px; }
-  .hero-btn { width:100%; justify-content:center; }
+  .hero-btn { width:100%; justify-content:center; min-height:52px; }
   section { padding:var(--space-section-mobile) 0; }
   .section-title { margin-bottom:24px; }
   .svc-grid { gap:10px; }
   .booking-card { padding:24px 16px; }
+  .booking-card select, .booking-card input { min-height:48px; }
+  .booking-card .slot-btn { min-height:44px; display:flex; align-items:center; justify-content:center; }
+  .btn-primary, .btn-secondary { min-height:50px; }
+  .bridal-btn { min-height:48px; display:inline-flex; align-items:center; }
+  .newsletter input { min-height:48px; }
+  .newsletter button { min-height:48px; }
+  .footer-socials a { width:48px; height:48px; }
   .footer-bottom { flex-direction:column; text-align:center; }
   .newsletter { flex-direction:column; }
   .reviews-text-grid { grid-template-columns:1fr; }
+  .slot-grid { gap:8px; }
 }
