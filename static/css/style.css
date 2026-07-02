@@ -66,8 +66,8 @@ nav .container { display:flex; justify-content:space-between; align-items:center
 .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; background:none; border:none; }
 .hamburger span { width:24px; height:2px; background:#332524; border-radius:2px; transition:0.3s; }
 
-.hero { position:relative; width:100%; height:500px; overflow:hidden; }
-.hero img { width:100%; height:100%; object-fit:cover; }
+.hero { position:relative; width:100%; height:auto; min-height:90vh; display:flex; align-items:center; justify-content:center; background:#F6F0E8; padding:40px 20px; }
+.hero img { width:100%; height:auto; max-height:85vh; object-fit:contain; border-radius:12px; }
 .hero-overlay { position:absolute; inset:0; background:linear-gradient(90deg,rgba(51,37,36,0.7) 0%,rgba(51,37,36,0.3) 50%,transparent 70%); }
 .hero-content { position:absolute; top:50%; left:0; transform:translateY(-50%); width:100%; padding:0 24px; max-width:1200px; margin:0 auto; right:0; }
 .hero-content .inner { max-width:420px; }
@@ -175,7 +175,6 @@ footer { background:#332524; color:rgba(255,255,255,0.7); padding:60px 0 0; }
   .bridal-grid { grid-template-columns:1fr; }
   .footer-grid { grid-template-columns:1fr 1fr; gap:30px; }
   .reviews-text-grid { grid-template-columns:1fr; max-width:500px; }
-  .hero { height:380px; }
   .hero-content { padding:0 24px; }
 }
 
@@ -184,7 +183,6 @@ footer { background:#332524; color:rgba(255,255,255,0.7); padding:60px 0 0; }
   .nav-links.open { display:flex; }
   .nav-links a { font-size:15px; padding:6px 0; }
   .hamburger { display:flex; }
-  .hero { height:340px; }
   .hero-content .inner { max-width:100%; }
   .hero-overlay { background:linear-gradient(0deg,rgba(51,37,36,0.7) 0%,rgba(51,37,36,0.3) 50%,transparent 70%); }
   .bridal-card img { height:220px; }
@@ -196,7 +194,6 @@ footer { background:#332524; color:rgba(255,255,255,0.7); padding:60px 0 0; }
 @media (max-width:480px) {
   .svc-grid { grid-template-columns:repeat(2,1fr); }
   .svc-card .svc-img-wrap { height:240px; }
-  .hero { height:280px; }
   .hero-content h1 { font-size:24px; }
   .hero-content p { font-size:13px; }
   .hero-btn { width:100%; justify-content:center; }
