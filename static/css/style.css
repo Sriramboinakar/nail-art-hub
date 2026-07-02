@@ -1,9 +1,52 @@
+:root{
+  /* Decorative brand color — tags, links, small accents (NOT for button text-on-fill) */
+  --brand:#B5797A;
+  --brand-soft:rgba(181,121,122,0.07);
+  /* Primary CTA — darkened brand hue, passes 4.5:1+ contrast with white text */
+  --cta:#8B3A3F;
+  --cta-hover:#742F33;
+  /* Secondary action — lighter, clearly one step down from primary */
+  --secondary:#B5797A;
+  --secondary-hover:#a36869;
+  --ink:#332524;
+  --muted:#888;
+  --cream:#F6F0E8;
+  --border:#e8e0dc;
+  --space-section:80px;
+  --space-section-mobile:40px;
+}
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family:'Poppins',sans-serif; color:#332524; background:#fff; overflow-x:hidden; }
-h1,h2,h3,h4 { font-family:'Playfair Display',serif; font-weight:600; }
+h1,h2,h3,h4 { font-family:'Playfair Display',serif; font-weight:700; }
 .container { max-width:1200px; margin:0 auto; padding:0 24px; }
 a { text-decoration:none; color:inherit; }
 img { max-width:100%; display:block; }
+
+/* Consistent focus states for keyboard/accessibility navigation */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+  outline:2.5px solid var(--cta);
+  outline-offset:2px;
+  border-radius:4px;
+}
+
+/* Unified button system — one visual language for every button on the site.
+   .btn-primary = the single "book/pay" action, always the darkest/boldest.
+   .btn-secondary = lower-priority actions (enquire, view map, subscribe). */
+.btn-primary, .btn-secondary {
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:13px 32px; border-radius:50px; font-weight:600; font-size:14px;
+  border:none; cursor:pointer; transition:0.25s ease; letter-spacing:0.2px;
+}
+.btn-primary {
+  background:var(--cta); color:#fff;
+  box-shadow:0 6px 18px rgba(139,58,63,0.28);
+}
+.btn-primary:hover { background:var(--cta-hover); transform:translateY(-2px); box-shadow:0 10px 26px rgba(139,58,63,0.38); }
+.btn-secondary {
+  background:#fff; color:var(--secondary); border:1.5px solid var(--secondary);
+  box-shadow:none;
+}
+.btn-secondary:hover { background:var(--secondary); color:#fff; transform:translateY(-1px); }
 
 .top-bar { background:#B5797A; color:#fff; padding:8px 0; font-size:13px; }
 .top-bar .container { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; }
@@ -18,8 +61,8 @@ nav .container { display:flex; justify-content:space-between; align-items:center
 .nav-links { display:flex; align-items:center; gap:28px; }
 .nav-links a { font-size:14px; font-weight:500; color:#332524; transition:0.2s; }
 .nav-links a:hover { color:#B5797A; }
-.nav-btn { background:#B5797A; color:#fff !important; padding:10px 28px; border-radius:50px; font-weight:600; font-size:13px; }
-.nav-btn:hover { background:#a36869 !important; transform:translateY(-1px); box-shadow:0 4px 15px rgba(181,121,122,0.3); }
+.nav-btn { background:var(--cta); color:#fff !important; padding:11px 28px; border-radius:50px; font-weight:600; font-size:13px; box-shadow:0 4px 14px rgba(139,58,63,0.25); }
+.nav-btn:hover { background:var(--cta-hover) !important; transform:translateY(-1px); box-shadow:0 6px 18px rgba(139,58,63,0.35); }
 .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; background:none; border:none; }
 .hamburger span { width:24px; height:2px; background:#332524; border-radius:2px; transition:0.3s; }
 
@@ -31,16 +74,16 @@ nav .container { display:flex; justify-content:space-between; align-items:center
 .hero-tag { display:inline-block; padding:5px 16px; border-radius:50px; background:rgba(246,240,232,0.15); color:#F6F0E8; font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; margin-bottom:14px; border:1px solid rgba(255,255,255,0.1); backdrop-filter:blur(4px); }
 .hero-content h1 { font-size:clamp(32px,4.5vw,52px); color:#fff; line-height:1.08; margin-bottom:12px; }
 .hero-content p { font-size:clamp(14px,1.3vw,16px); color:rgba(255,255,255,0.8); line-height:1.7; margin-bottom:24px; }
-.hero-btn { display:inline-flex; padding:14px 36px; border-radius:50px; background:#B5797A; color:#fff; font-weight:600; font-size:14px; transition:0.3s; }
-.hero-btn:hover { background:#a36869; transform:translateY(-2px); box-shadow:0 8px 25px rgba(181,121,122,0.35); }
+.hero-btn { display:inline-flex; padding:15px 38px; border-radius:50px; background:var(--cta); color:#fff; font-weight:600; font-size:14px; transition:0.3s; box-shadow:0 8px 24px rgba(139,58,63,0.35); }
+.hero-btn:hover { background:var(--cta-hover); transform:translateY(-2px); box-shadow:0 10px 30px rgba(139,58,63,0.45); }
 .hero-wave { position:absolute; bottom:-1px; left:0; width:100%; line-height:0; }
 .hero-wave svg { display:block; width:100%; height:auto; }
 
-section { padding:80px 0; }
+section { padding:var(--space-section) 0; }
 .section-title { text-align:center; margin-bottom:50px; }
-.section-tag { display:inline-block; padding:4px 14px; border-radius:50px; background:rgba(181,121,122,0.07); color:#B5797A; font-size:10px; font-weight:600; letter-spacing:2px; text-transform:uppercase; margin-bottom:10px; }
-.section-title h2 { font-size:clamp(26px,3vw,34px); color:#332524; margin-bottom:8px; }
-.section-title h2 span { color:#B5797A; }
+.section-tag { display:inline-block; padding:4px 14px; border-radius:50px; background:var(--brand-soft); color:var(--brand); font-size:10px; font-weight:600; letter-spacing:2px; text-transform:uppercase; margin-bottom:10px; }
+.section-title h2 { font-size:clamp(28px,3.2vw,36px); font-weight:700; color:#332524; margin-bottom:8px; }
+.section-title h2 span { color:var(--brand); }
 .section-title p { color:#999; font-size:14px; }
 
 .nail-section { background:#fff; }
@@ -63,8 +106,8 @@ section { padding:80px 0; }
 .bridal-card .bridal-info { padding:24px; }
 .bridal-card .bridal-info h3 { font-size:22px; color:#332524; margin-bottom:6px; }
 .bridal-card .bridal-info p { font-size:14px; color:#888; line-height:1.6; margin-bottom:16px; }
-.bridal-btn { display:inline-flex; padding:11px 28px; border-radius:50px; background:#B5797A; color:#fff; font-weight:600; font-size:13px; transition:0.3s; border:none; cursor:pointer; }
-.bridal-btn:hover { background:#a36869; }
+.bridal-btn { display:inline-flex; padding:10.5px 26px; border-radius:50px; background:#fff; color:var(--secondary); font-weight:600; font-size:13px; transition:0.3s; border:1.5px solid var(--secondary); cursor:pointer; }
+.bridal-btn:hover { background:var(--secondary); color:#fff; }
 
 .reviews-section { background:#fff; }
 .reviews-video { max-width:700px; margin:0 auto; border-radius:16px; overflow:hidden; box-shadow:0 20px 60px rgba(51,37,36,0.1); }
@@ -102,20 +145,24 @@ footer { background:#332524; color:rgba(255,255,255,0.7); padding:60px 0 0; }
 .booking-card { max-width:520px; margin:0 auto; background:#fff; padding:36px; border-radius:16px; box-shadow:0 10px 40px rgba(51,37,36,0.04); }
 .booking-card label { display:block; font-size:12px; font-weight:600; color:#332524; margin:16px 0 4px; text-transform:uppercase; letter-spacing:1px; }
 .booking-card select, .booking-card input { width:100%; padding:12px 16px; border-radius:10px; border:1.5px solid #e8e0dc; font-size:14px; color:#332524; background:#fff; -webkit-appearance:none; appearance:none; }
-.booking-card select:focus, .booking-card input:focus { outline:none; border-color:#B5797A; }
+.booking-card select:focus, .booking-card input:focus { outline:none; border-color:var(--cta); box-shadow:0 0 0 3px rgba(139,58,63,0.12); }
 .booking-card .slot-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin-top:4px; }
 .booking-card .slot-btn { padding:10px; border-radius:8px; border:1.5px solid #e8e0dc; text-align:center; font-size:12px; cursor:pointer; background:#fff; color:#332524; transition:0.2s; }
-.booking-card .slot-btn:hover { border-color:#B5797A; }
-.booking-card .slot-btn.selected { background:#B5797A; color:#fff; border-color:#B5797A; }
+.booking-card .slot-btn:hover { border-color:var(--cta); }
+.booking-card .slot-btn.selected { background:var(--cta); color:#fff; border-color:var(--cta); }
 .booking-card .slot-btn.booked { opacity:0.3; cursor:not-allowed; text-decoration:line-through; }
 .booking-fee { background:#F6F0E8; border-radius:12px; padding:14px 20px; margin:18px 0; display:flex; justify-content:space-between; align-items:center; }
 .booking-fee .bf-label { font-size:12px; color:#888; }
-.booking-fee .bf-amount { font-size:26px; font-weight:700; color:#B5797A; }
+.booking-fee .bf-amount { font-size:26px; font-weight:700; color:var(--cta); }
+
+/* Progressive disclosure — keeps the booking form from feeling like a wall of fields */
+.form-step { transition:opacity 0.3s ease; }
+.form-step.locked { opacity:0.4; pointer-events:none; }
 
 #payModal { display:none; position:fixed; inset:0; background:rgba(51,37,36,0.6); backdrop-filter:blur(6px); align-items:center; justify-content:center; z-index:2000; }
 #payModal .pay-card { background:#fff; border-radius:24px; padding:36px; max-width:380px; width:90%; text-align:center; }
 #payModal h3 { font-size:20px; margin-bottom:4px; }
-#payModal .pay-amount { font-size:36px; font-weight:700; color:#B5797A; margin:8px 0 16px; }
+#payModal .pay-amount { font-size:36px; font-weight:700; color:var(--cta); margin:8px 0 16px; }
 #payModal input { width:100%; padding:12px 16px; border:1.5px solid #e8e0dc; border-radius:10px; font-size:14px; margin-bottom:10px; }
 #payModal .pay-row { display:flex; gap:10px; }
 #payModal .pay-row input { width:50%; }
@@ -153,7 +200,7 @@ footer { background:#332524; color:rgba(255,255,255,0.7); padding:60px 0 0; }
   .hero-content h1 { font-size:24px; }
   .hero-content p { font-size:13px; }
   .hero-btn { width:100%; justify-content:center; }
-  section { padding:40px 0; }
+  section { padding:var(--space-section-mobile) 0; }
   .section-title { margin-bottom:24px; }
   .svc-grid { gap:10px; }
   .booking-card { padding:24px 16px; }
