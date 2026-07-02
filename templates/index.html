@@ -149,7 +149,7 @@
     </div>
     <div class="bridal-grid">
       <div class="bridal-card">
-        <div style="height:200px;background:#e8e0dc;display:flex;align-items:center;justify-content:center;color:#B5797A;font-family:'Playfair Display',serif;font-size:32px;">Mehandi</div>
+        <div style="height:200px;background:#e8e0dc;display:flex;align-items:center;justify-content:center;color:#8B3A3F;font-family:'Playfair Display',serif;font-size:32px;font-weight:700;">Mehandi</div>
         <div class="bridal-info">
           <h3>Mehandi</h3>
           <p>Intricate henna designs for brides and special occasions. From traditional patterns to contemporary styles, each design is crafted with care.</p>
@@ -157,7 +157,7 @@
         </div>
       </div>
       <div class="bridal-card">
-        <div style="height:200px;background:#e8e0dc;display:flex;align-items:center;justify-content:center;color:#B5797A;font-family:'Playfair Display',serif;font-size:32px;">Makeup</div>
+        <div style="height:200px;background:#e8e0dc;display:flex;align-items:center;justify-content:center;color:#8B3A3F;font-family:'Playfair Display',serif;font-size:32px;font-weight:700;">Makeup</div>
         <div class="bridal-info">
           <h3>Makeup</h3>
           <p>Professional makeup for brides, parties, and events. Airbrush finish, HD glam, and natural looks tailored to your style.</p>
@@ -230,30 +230,34 @@
         <option value="10">Mehandi</option>
         <option value="11">Makeup</option>
       </select>
-      <label>Your Name</label>
-      <input type="text" id="bookName" placeholder="Enter your name">
-      <label>Phone Number</label>
-      <input type="tel" id="bookPhone" placeholder="Your phone number">
-      <div style="display:flex;gap:10px;margin-top:4px">
-        <div style="flex:1">
-          <label>Branch</label>
-          <select id="bookBranch">
-            <option value="1">Dammaiguda</option>
-            <option value="2">Moula Ali</option>
-          </select>
-        </div>
-        <div style="flex:1">
-          <label>Date</label>
-          <input type="date" id="bookDate">
-        </div>
+      <div class="form-step locked" id="step2">
+        <label>Your Name</label>
+        <input type="text" id="bookName" placeholder="Enter your name">
+        <label>Phone Number</label>
+        <input type="tel" id="bookPhone" placeholder="Your phone number">
       </div>
-      <label>Time Slot</label>
-      <div class="slot-grid" id="slotGrid"></div>
+      <div class="form-step locked" id="step3">
+        <div style="display:flex;gap:10px;margin-top:4px">
+          <div style="flex:1">
+            <label>Branch</label>
+            <select id="bookBranch">
+              <option value="1">Dammaiguda</option>
+              <option value="2">Moula Ali</option>
+            </select>
+          </div>
+          <div style="flex:1">
+            <label>Date</label>
+            <input type="date" id="bookDate">
+          </div>
+        </div>
+        <label>Time Slot</label>
+        <div class="slot-grid" id="slotGrid"></div>
+      </div>
       <div class="booking-fee">
         <div><div class="bf-label">Booking Fee</div><div class="bf-label" style="font-size:11px;color:#aaa;margin-top:2px">Non-refundable</div></div>
         <div class="bf-amount">&#8377;99</div>
       </div>
-      <button class="hero-btn" style="width:100%;justify-content:center;padding:14px;font-size:15px;border:none;cursor:pointer" onclick="openPayment()" id="bookBtn" disabled>Pay &#8377;99 &amp; Book</button>
+      <button class="btn-primary" style="width:100%;padding:14px;font-size:15px;" onclick="openPayment()" id="bookBtn" disabled>Pay &#8377;99 &amp; Book</button>
     </div>
   </div>
 </section>
@@ -270,13 +274,13 @@
         <h3 style="font-family:'Playfair Display',serif;font-size:18px;color:#332524;margin-bottom:8px">Dammaiguda</h3>
         <p style="font-size:14px;color:#888;margin-bottom:4px">&#128205; Dammaiguda, Hyderabad</p>
         <p style="font-size:14px;color:#888;margin-bottom:12px">&#128338; 10 AM - 8 PM</p>
-        <a href="https://share.google/BO8n1BS5hnwJsdkFb" target="_blank" style="display:inline-flex;padding:10px 22px;border-radius:50px;background:#B5797A;color:#fff;font-size:13px;font-weight:600;text-decoration:none">View on Google Maps</a>
+        <a href="https://share.google/BO8n1BS5hnwJsdkFb" target="_blank" class="btn-secondary" style="padding:10px 22px;font-size:13px;text-decoration:none">View on Google Maps</a>
       </div>
       <div style="background:#fff;padding:24px;border-radius:12px;border-left:4px solid #B5797A">
         <h3 style="font-family:'Playfair Display',serif;font-size:18px;color:#332524;margin-bottom:8px">Moula Ali</h3>
         <p style="font-size:14px;color:#888;margin-bottom:4px">&#128205; Moula Ali, Hyderabad</p>
         <p style="font-size:14px;color:#888;margin-bottom:12px">&#128338; 10 AM - 8 PM</p>
-        <a href="https://share.google/YaLRVzZx8LbY6POBY" target="_blank" style="display:inline-flex;padding:10px 22px;border-radius:50px;background:#B5797A;color:#fff;font-size:13px;font-weight:600;text-decoration:none">View on Google Maps</a>
+        <a href="https://share.google/YaLRVzZx8LbY6POBY" target="_blank" class="btn-secondary" style="padding:10px 22px;font-size:13px;text-decoration:none">View on Google Maps</a>
       </div>
     </div>
   </div>
@@ -340,14 +344,14 @@
         <input type="text" id="cardExp" placeholder="MM/YY" value="12/28">
         <input type="text" id="cardCvv" placeholder="CVV" value="123">
       </div>
-      <button onclick="processPayment()" id="processBtn" style="width:100%;padding:13px;border:none;border-radius:50px;background:#B5797A;color:#fff;font-weight:600;font-size:15px;cursor:pointer;margin-top:10px">Pay &#8377;99</button>
+      <button onclick="processPayment()" id="processBtn" class="btn-primary" style="width:100%;padding:13px;font-size:15px;margin-top:10px">Pay &#8377;99</button>
       <button onclick="closeModal()" style="width:100%;padding:11px;border:none;border-radius:50px;background:#f5f0ec;color:#888;margin-top:6px;cursor:pointer;font-size:14px">Cancel</button>
     </div>
     <div id="paySuccess" style="display:none">
       <div class="check">&#10003;</div>
       <h3>Booking Confirmed!</h3>
       <p id="confirmText"></p>
-      <button onclick="resetBooking()" style="width:100%;padding:13px;border:none;border-radius:50px;background:#B5797A;color:#fff;font-weight:600;cursor:pointer;margin-top:10px;font-size:15px">Done</button>
+      <button onclick="resetBooking()" class="btn-primary" style="width:100%;padding:13px;margin-top:10px;font-size:15px">Done</button>
     </div>
   </div>
 </div>
