@@ -66,16 +66,17 @@ nav .container { display:flex; justify-content:space-between; align-items:center
 .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; background:none; border:none; }
 .hamburger span { width:24px; height:2px; background:#332524; border-radius:2px; transition:0.3s; }
 
-.hero { position:relative; width:100%; height:auto; min-height:90vh; display:flex; align-items:center; justify-content:center; background:#F6F0E8; padding:40px 20px; }
-.hero img { width:100%; height:auto; max-height:85vh; object-fit:contain; border-radius:12px; }
-.hero-overlay { position:absolute; inset:0; background:linear-gradient(90deg,rgba(51,37,36,0.7) 0%,rgba(51,37,36,0.3) 50%,transparent 70%); }
+.hero { position:relative; width:100%; height:100vh; height:100dvh; overflow:hidden; }
+.hero img { width:100%; height:100%; object-fit:cover; object-position:50% 60%; }
+.hero-overlay { position:absolute; inset:0; background:linear-gradient(135deg,rgba(51,37,36,0.82) 0%,rgba(51,37,36,0.45) 40%,rgba(181,121,122,0.15) 70%,transparent 90%); }
 .hero-content { position:absolute; top:50%; left:0; transform:translateY(-50%); width:100%; padding:0 24px; max-width:1200px; margin:0 auto; right:0; }
-.hero-content .inner { max-width:420px; }
-.hero-tag { display:inline-block; padding:5px 16px; border-radius:50px; background:rgba(246,240,232,0.15); color:#F6F0E8; font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; margin-bottom:14px; border:1px solid rgba(255,255,255,0.1); backdrop-filter:blur(4px); }
-.hero-content h1 { font-size:clamp(32px,4.5vw,52px); color:#fff; line-height:1.08; margin-bottom:12px; }
-.hero-content p { font-size:clamp(14px,1.3vw,16px); color:rgba(255,255,255,0.8); line-height:1.7; margin-bottom:24px; }
-.hero-btn { display:inline-flex; padding:15px 38px; border-radius:50px; background:var(--cta); color:#fff; font-weight:600; font-size:14px; transition:0.3s; box-shadow:0 8px 24px rgba(139,58,63,0.35); }
-.hero-btn:hover { background:var(--cta-hover); transform:translateY(-2px); box-shadow:0 10px 30px rgba(139,58,63,0.45); }
+.hero-content .inner { max-width:480px; }
+.hero-tag { display:inline-block; padding:7px 20px; border-radius:50px; background:rgba(181,121,122,0.12); color:#F6F0E8; font-size:11px; font-weight:500; letter-spacing:3px; text-transform:uppercase; margin-bottom:20px; border:1px solid rgba(246,240,232,0.15); backdrop-filter:blur(8px); }
+.hero-content h1 { font-size:clamp(34px,4.5vw,56px); color:#fff; line-height:1.06; margin-bottom:16px; text-shadow:0 2px 20px rgba(0,0,0,0.15); }
+.hero-content h1::after { content:''; display:block; width:60px; height:2px; background:linear-gradient(90deg,#B5797A,transparent); margin-top:20px; }
+.hero-content p { font-size:clamp(15px,1.4vw,17px); color:rgba(246,240,232,0.85); line-height:1.7; margin-bottom:28px; max-width:400px; }
+.hero-btn { display:inline-flex; padding:16px 44px; border-radius:50px; background:linear-gradient(135deg,var(--cta),#a0454a); color:#fff; font-weight:600; font-size:14px; transition:0.3s; box-shadow:0 10px 30px rgba(139,58,63,0.4); letter-spacing:0.5px; }
+.hero-btn:hover { background:var(--cta-hover); transform:translateY(-3px); box-shadow:0 14px 36px rgba(139,58,63,0.5); }
 .hero-wave { position:absolute; bottom:-1px; left:0; width:100%; line-height:0; }
 .hero-wave svg { display:block; width:100%; height:auto; }
 
@@ -184,17 +185,21 @@ footer { background:#332524; color:rgba(255,255,255,0.7); padding:60px 0 0; }
   .nav-links a { font-size:15px; padding:6px 0; }
   .hamburger { display:flex; }
   .hero-content .inner { max-width:100%; }
-  .hero-overlay { background:linear-gradient(0deg,rgba(51,37,36,0.7) 0%,rgba(51,37,36,0.3) 50%,transparent 70%); }
+  .hero-overlay { background:linear-gradient(0deg,rgba(51,37,36,0.8) 0%,rgba(51,37,36,0.4) 40%,transparent 70%); }
   .bridal-card img { height:220px; }
   .footer-grid { grid-template-columns:1fr; gap:30px; }
   .top-bar { font-size:12px; }
   .top-bar .tb-right { display:none; }
+  .hero-content h1 { font-size:30px; }
+  .hero-content h1::after { width:50px; }
+  .hero-content p { max-width:100%; }
 }
 
 @media (max-width:480px) {
   .svc-grid { grid-template-columns:repeat(2,1fr); }
   .svc-card .svc-img-wrap { height:240px; }
-  .hero-content h1 { font-size:24px; }
+
+  .hero-content h1 { font-size:26px; }
   .hero-content p { font-size:13px; }
   .hero-btn { width:100%; justify-content:center; }
   section { padding:var(--space-section-mobile) 0; }
