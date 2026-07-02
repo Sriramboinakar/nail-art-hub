@@ -36,12 +36,23 @@ document.addEventListener('DOMContentLoaded', function() {
   var bookBtn = document.getElementById('bookBtn');
 
   var selectedSlot = null;
+  var step2 = document.getElementById('step2');
+  var step3 = document.getElementById('step3');
+
+  function updateSteps() {
+    var svc = bookService.value;
+    var name = bookName.value.trim();
+    var phone = bookPhone.value.trim();
+    if (step2) step2.classList.toggle('locked', !svc);
+    if (step3) step3.classList.toggle('locked', !(svc && name && phone));
+  }
 
   function checkReady() {
     var svc = bookService.value;
     var name = bookName.value.trim();
     var phone = bookPhone.value.trim();
     bookBtn.disabled = !(svc && selectedSlot && name && phone);
+    updateSteps();
   }
 
   function loadSlots() {
