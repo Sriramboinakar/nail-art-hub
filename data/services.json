@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Gel Manicure",
+    "price": 35,
+    "desc": "Long-lasting shine with gel finish"
+  },
+  {
+    "id": 2,
+    "name": "Nail Art Design",
+    "price": 55,
+    "desc": "Custom artistic nail designs"
+  },
+  {
+    "id": 3,
+    "name": "Acrylic Full Set",
+    "price": 50,
+    "desc": "Perfect shape and length"
+  },
+  {
+    "id": 4,
+    "name": "Gel Pedicure",
+    "price": 40,
+    "desc": "Relaxing foot care with gel"
+  },
+  {
+    "id": 5,
+    "name": "Manicure + Pedicure Combo",
+    "price": 65,
+    "desc": "Full hand and foot care"
+  }
+]

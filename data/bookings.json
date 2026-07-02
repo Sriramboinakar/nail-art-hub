@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "client_name": "SRIRAM BOINAKAR",
+    "phone": "08978131267",
+    "service_id": 2,
+    "service_name": "Nail Art Design",
+    "branch_id": "2",
+    "branch_name": "Moula Ali",
+    "date": "2026-07-16",
+    "time": "4:00 PM",
+    "total": 55,
+    "advance": 11,
+    "payment_status": "paid",
+    "status": "confirmed",
+    "created": "2026-07-01T21:19:56.587492"
+  },
+  {
+    "id": 2,
+    "client_name": "SRIRAM BOINAKAR",
+    "phone": "08978131267",
+    "service_id": 4,
+    "service_name": "Gel Pedicure",
+    "branch_id": "2",
+    "branch_name": "Moula Ali",
+    "date": "2026-07-16",
+    "time": "6:00 PM",
+    "total": 40,
+    "advance": 8,
+    "payment_status": "paid",
+    "status": "confirmed",
+    "created": "2026-07-01T21:23:29.629740"
+  }
+]
