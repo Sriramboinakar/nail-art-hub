@@ -192,6 +192,18 @@ function razorpayPay() {
   });
 }
 
+function upiPay() {
+  var d = getBookingData();
+  if (!d.name || !d.phone || !d.time) return;
+  var upiId = document.getElementById('upiIdDisplay') ? document.getElementById('upiIdDisplay').textContent.trim() : 'nailarthub20@upi';
+  var note = 'Nail%20Art%20Hub%20-%20' + encodeURIComponent(d.service_name) + '%20' + encodeURIComponent(d.date) + '%20' + encodeURIComponent(d.time);
+  var upiLink = 'upi://pay?pa=' + encodeURIComponent(upiId) + '&am=99&cu=INR&tn=' + note;
+  document.getElementById('razorpayBtnWrap').style.display = 'none';
+  document.getElementById('payProcessing').style.display = 'block';
+  document.getElementById('payProcessing').innerHTML = '<div style="font-size:14px;color:#888;margin-bottom:12px">Opening UPI app...</div><div style="font-size:13px;color:#666;margin-bottom:16px">After paying, click confirm below</div><button onclick="confirmBooking().then(function(){document.getElementById(\'payProcessing\').style.display=\'none\';document.getElementById(\'paySuccess\').style.display=\'block\';var d=getBookingData();document.getElementById(\'confirmText\').innerHTML=d.service_name+\'<br>\'+d.date+\' at \'+d.time})" class="btn-primary" style="width:100%;padding:13px;font-size:15px;border:none;border-radius:50px;cursor:pointer;color:#fff;background:#25D366;font-weight:600">&#10003; I\'ve Paid — Confirm Booking</button>';
+  window.open(upiLink, '_blank');
+}
+
 function resetBooking() {
   closeModal();
   document.getElementById('bookService').value = '';
