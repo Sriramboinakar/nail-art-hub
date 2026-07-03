@@ -15,7 +15,7 @@
 <div class="top-bar">
   <div class="container">
     <div class="tb-left">
-      <a href="tel:+919999999999">+91 99999 99999</a>
+      <a href="tel:+918978611223">+91 89786 11223</a>
       <a href="mailto:nailarthub20@gmail.com">nailarthub20@gmail.com</a>
     </div>
     <div class="tb-right">
@@ -27,16 +27,20 @@
 
 <nav id="navbar">
   <div class="container">
-    <a href="#" class="logo"><img src="/static/images/logo.jpeg" alt="Nail Art Hub" width="36" height="36" decoding="async"> Nail Art Hub</a>
+    <a href="#" class="logo"><img src="/static/images/logo.jpeg" alt="Nail Art Hub"> Nail Art Hub</a>
     <div class="nav-links" id="navLinks">
       <a href="#home">Home</a>
       <a href="#services">Services</a>
+      <a href="#course">Nail Course</a>
       <a href="#bridal">Bridal &amp; Makeup</a>
+      <a href="#gallery">Gallery</a>
       <a href="#testimonials">Testimonials</a>
       <a href="#contact">Contact</a>
-      <a href="#booking-section" class="nav-btn">Book Now</a>
     </div>
-    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <div class="nav-actions">
+      <a href="#booking-section" class="nav-btn">Book Now</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
   </div>
 </nav>
 
@@ -45,9 +49,8 @@
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <div class="inner">
-      <div class="hero-tag">Premium Nail Studio in Hyderabad</div>
       <h1>Where Every Nail Tells a Story</h1>
-      <p>Expert nail artistry, bridal makeup, and mehndi by Ayesha with 2+ years of experience at Dammaiguda and Moula Ali.</p>
+      <p>2+ years of expertise. Serving in Moula Ali and Dammaiguda</p>
       <a href="#booking-section" class="hero-btn">Book Appointment</a>
     </div>
   </div>
@@ -113,11 +116,11 @@
       </div>
       <div class="svc-card">
         <div class="svc-img-wrap" onclick="openLightbox('/static/images/gel-removal.jpg')">
-          <img src="/static/images/gel-removal.jpg" alt="Gel Polish Removal" width="400" height="280" loading="lazy" decoding="async" onerror="this.parentElement.style.display='none'">
+          <img src="/static/images/gel-removal.jpg" alt="Acrylic 3D Nail Art" width="400" height="280" loading="lazy" decoding="async" onerror="this.parentElement.style.display='none'">
         </div>
         <div class="svc-info">
-          <h3>Gel Polish Removal</h3>
-          <p>Safe and gentle gel polish removal</p>
+          <h3>Acrylic 3D Nail Art</h3>
+          <p>Stunning 3D acrylic nail art with intricate designs and embellishments</p>
         </div>
       </div>
       <div class="svc-card">
@@ -138,7 +141,41 @@
           <p>Gel pedicure with long-lasting color</p>
         </div>
       </div>
+      <div class="svc-card">
+        <div class="svc-img-wrap" onclick="openLightbox('/static/images/mehandi.jpg')">
+          <img src="/static/images/mehandi.jpg" alt="Mehandi" width="400" height="280" loading="lazy" decoding="async" onerror="this.parentElement.style.display='none'">
+        </div>
+        <div class="svc-info">
+          <h3>Mehandi</h3>
+          <p>Intricate henna designs for brides and special occasions</p>
+        </div>
+      </div>
 
+    </div>
+  </div>
+</section>
+
+<section class="course-section" id="course">
+  <div class="container">
+    <div class="course-card">
+      <div class="course-img" onclick="openLightbox('/static/images/nail-course.jpg')" style="cursor:pointer">
+        <img src="/static/images/nail-course.jpg" alt="Nail Art Course" width="500" height="400" loading="lazy" decoding="async">
+      </div>
+      <div class="course-info">
+        <div class="course-tag">New</div>
+        <h2>Nail Art <span>Course</span></h2>
+        <p class="course-desc">Learn professional nail art from Ayesha Fatima herself. Master gel polish, extensions, acrylics, 3D nail art, and more. Hands-on training with real clients. Perfect for beginners and aspiring nail technicians.</p>
+        <div class="course-highlights">
+          <div class="ch-item">
+            <div class="ch-icon">&#10003;</div>
+            <div>
+              <div class="ch-label">All Levels</div>
+              <div class="ch-sub">Beginner to advanced</div>
+            </div>
+          </div>
+        </div>
+        <a href="https://wa.me/918978611223?text=Hi%20Ayesha%2C%20I%27m%20interested%20in%20your%20Nail%20Art%20Course" target="_blank" class="course-btn">Enquire About Course</a>
+      </div>
     </div>
   </div>
 </section>
@@ -152,15 +189,22 @@
     </div>
     <div class="bridal-grid">
       <div class="bridal-card">
-        <div style="height:200px;background:#e8e0dc;display:flex;align-items:center;justify-content:center;color:#8B3A3F;font-family:'Playfair Display',serif;font-size:32px;font-weight:700;">Mehandi</div>
+        <img src="/static/images/mehandi.jpg" alt="Mehandi" width="400" height="280" loading="lazy" decoding="async" onclick="openLightbox('/static/images/mehandi.jpg')">
         <div class="bridal-info">
           <h3>Mehandi</h3>
           <p>Intricate henna designs for brides and special occasions. From traditional patterns to contemporary styles, each design is crafted with care.</p>
+          <div style="margin:12px 0">
+            <video controls preload="none" style="width:100%;border-radius:10px" poster="/static/images/mehandi.jpg">
+              <source src="/static/videos/mehandi-video.mp4" type="video/mp4">
+            </video>
+          </div>
           <a href="#booking-section" class="bridal-btn">Enquire Now</a>
         </div>
       </div>
       <div class="bridal-card">
-        <div style="height:200px;background:#e8e0dc;display:flex;align-items:center;justify-content:center;color:#8B3A3F;font-family:'Playfair Display',serif;font-size:32px;font-weight:700;">Makeup</div>
+        <div style="height:200px;overflow:hidden;cursor:pointer" onclick="openLightbox('/static/images/makeup.jpg')">
+          <img src="/static/images/makeup.jpg" alt="Makeup" style="width:100%;height:100%;object-fit:cover">
+        </div>
         <div class="bridal-info">
           <h3>Makeup</h3>
           <p>Professional makeup for brides, parties, and events. Airbrush finish, HD glam, and natural looks tailored to your style.</p>
@@ -190,25 +234,44 @@
         Your browser does not support the video tag.
       </video>
     </div>
-    <div class="reviews-text-grid">
-      <div class="review-text-card">
-        <div class="rv-name">Priya</div>
-        <div class="rv-service">Bridal Nails</div>
-        <div class="rv-text">"Ayesha did my bridal nails and they were absolutely stunning. Got so many compliments throughout the wedding. Highly recommend!"</div>
+    <div class="google-reviews-section">
+      <div class="gr-header">
+        <div style="display:flex;align-items:center;gap:10px">
+          <span style="font-size:22px">&#9733;</span>
+          <div style="font-weight:600;font-size:15px;color:#332524">Google Reviews</div>
+        </div>
+        <a href="https://www.google.com/maps/place/Nail+art+hub/@17.4643312,78.5619509,17z/data=!4m6!3m5!1s0x3bcb9bdb56a47b4f:0xc50177815d76c392!8m2!3d17.4643312!4d78.5645258!16s%2Fg%2F11yg2cwk43" target="_blank" style="font-size:12px;color:var(--brand);text-decoration:underline">View all</a>
       </div>
-      <div class="review-text-card">
-        <div class="rv-name">Sneha</div>
-        <div class="rv-service">GelX Extensions</div>
-        <div class="rv-text">"Best nail artist in Hyderabad. My GelX extensions lasted over 3 weeks and looked so natural. Love coming here!"</div>
-      </div>
-      <div class="review-text-card">
-        <div class="rv-name">Riya</div>
-        <div class="rv-service">Nail Art</div>
-        <div class="rv-text">"Been coming to Ayesha for months now. Every time she nails the design perfectly. My go-to place for everything nails."</div>
-      </div>
+      <div class="gr-carousel" id="googleReviewsCarousel"></div>
     </div>
   </div>
 </section>
+
+<section class="gallery-section" id="gallery">
+  <div class="container">
+    <div class="section-title">
+      <div class="section-tag">Our Work</div>
+      <h2>Our <span>Gallery</span></h2>
+      <p>Take a look at our recent creations</p>
+    </div>
+    <div class="gallery-grid" id="galleryGrid">
+    </div>
+  </div>
+</section>
+
+<script>
+  (function() {
+    var grid = document.getElementById('galleryGrid');
+    if (!grid) return;
+    for (var i = 1; i <= 22; i++) {
+      var ext = '.jpeg';
+      var div = document.createElement('div');
+      div.className = 'gallery-item';
+      div.innerHTML = '<div class="gallery-img-wrap" onclick="openLightbox(\'/static/images/gallery-' + i + ext + '\')"><img src="/static/images/gallery-' + i + ext + '" alt="Nail Art Work" width="300" height="300" loading="lazy" decoding="async"></div>';
+      grid.appendChild(div);
+    }
+  })();
+</script>
 
 <section id="booking-section">
   <div class="container">
@@ -261,6 +324,12 @@
         <div class="bf-amount">&#8377;99</div>
       </div>
       <button class="btn-primary" style="width:100%;padding:14px;font-size:15px;" onclick="openPayment()" id="bookBtn" disabled>Pay &#8377;99 &amp; Book</button>
+      <div style="text-align:center;margin-top:14px;padding-top:14px;border-top:1px solid #ede8e4">
+        <p style="font-size:12px;color:#888;margin-bottom:6px">Or reach us directly on WhatsApp</p>
+        <a href="https://wa.me/918978611223" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:10px 24px;border-radius:50px;background:#25D366;color:#fff;font-weight:600;font-size:13px;text-decoration:none;transition:0.2s">
+          Chat on WhatsApp
+        </a>
+      </div>
     </div>
   </div>
 </section>
@@ -283,7 +352,7 @@
         <h3 style="font-family:'Playfair Display',serif;font-size:18px;color:#332524;margin-bottom:8px">Moula Ali</h3>
         <p style="font-size:14px;color:#888;margin-bottom:4px">&#128205; Moula Ali, Hyderabad</p>
         <p style="font-size:14px;color:#888;margin-bottom:12px">&#128338; 10 AM - 8 PM</p>
-        <a href="https://share.google/YaLRVzZx8LbY6POBY" target="_blank" class="btn-secondary" style="padding:10px 22px;font-size:13px;text-decoration:none">View on Google Maps</a>
+        <a href="https://www.google.com/maps/place/Nail+art+hub/@17.4643312,78.5619509,17z/data=!4m6!3m5!1s0x3bcb9bdb56a47b4f:0xc50177815d76c392!8m2!3d17.4643312!4d78.5645258!16s%2Fg%2F11yg2cwk43" target="_blank" class="btn-secondary" style="padding:10px 22px;font-size:13px;text-decoration:none">View on Google Maps</a>
       </div>
     </div>
   </div>
@@ -317,7 +386,7 @@
         <p>Dammaiguda, Hyderabad</p>
         <p>Moula Ali, Hyderabad</p>
         <p style="margin-top:8px">10 AM - 8 PM</p>
-        <p style="margin-top:8px"><a href="tel:+919999999999" style="display:inline">+91 99999 99999</a></p>
+        <p style="margin-top:8px"><a href="tel:+918978611223" style="display:inline">+91 89786 11223</a></p>
         <p><a href="mailto:nailarthub20@gmail.com" style="display:inline">nailarthub20@gmail.com</a></p>
       </div>
     </div>
@@ -341,14 +410,12 @@
   <div class="pay-card">
     <h3>Booking Fee</h3>
     <div class="pay-amount">&#8377;99</div>
-    <div class="pay-form" id="payForm">
-      <input type="text" id="cardNum" placeholder="Card number" value="4111 1111 1111 1111">
-      <div class="pay-row">
-        <input type="text" id="cardExp" placeholder="MM/YY" value="12/28">
-        <input type="text" id="cardCvv" placeholder="CVV" value="123">
-      </div>
-      <button onclick="processPayment()" id="processBtn" class="btn-primary" style="width:100%;padding:13px;font-size:15px;margin-top:10px">Pay &#8377;99</button>
+    <div id="razorpayBtnWrap">
+      <button onclick="razorpayPay()" id="processBtn" class="btn-primary" style="width:100%;padding:13px;font-size:15px;margin-top:10px">Pay &#8377;99</button>
       <button onclick="closeModal()" style="width:100%;padding:11px;border:none;border-radius:50px;background:#f5f0ec;color:#888;margin-top:6px;cursor:pointer;font-size:14px">Cancel</button>
+    </div>
+    <div id="payProcessing" style="display:none;text-align:center;padding:20px 0">
+      <div style="font-size:14px;color:#888">Processing payment...</div>
     </div>
     <div id="paySuccess" style="display:none">
       <div class="check">&#10003;</div>
@@ -358,6 +425,8 @@
     </div>
   </div>
 </div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 <script src="/static/js/script.js"></script>
 </body>

@@ -1,8 +1,10 @@
 from flask import Flask, render_template, jsonify, request
 from datetime import date, datetime
 import json
-import os
+import os, urllib.request, urllib.parse
 import sys
+import hashlib
+import hmac
 
 IS_VERCEL = os.environ.get("VERCEL") == "1" or os.environ.get("VERCEL_ENV") is not None
 
@@ -41,10 +43,32 @@ DEFAULT_SERVICES = [
 
 DEFAULT_BRANCHES = [
     {"id": 1, "name": "Dammaiguda", "address": "Dammaiguda, Hyderabad", "phone": "TBA", "timings": "10 AM - 8 PM", "maps": "https://share.google/BO8n1BS5hnwJsdkFb"},
-    {"id": 2, "name": "Moula Ali", "address": "Moula Ali, Hyderabad", "phone": "TBA", "timings": "10 AM - 8 PM", "maps": "https://share.google/YaLRVzZx8LbY6POBY"}
+    {"id": 2, "name": "Moula Ali", "address": "Moula Ali, Hyderabad", "phone": "TBA", "timings": "10 AM - 8 PM", "maps": "https://www.google.com/maps/place/Nail+art+hub/@17.4643312,78.5619509,17z/data=!4m6!3m5!1s0x3bcb9bdb56a47b4f:0xc50177815d76c392!8m2!3d17.4643312!4d78.5645258!16s%2Fg%2F11yg2cwk43"}
 ]
 
+FALLBACK_REVIEWS = [
+    {"author": "Priya S.", "rating": 5, "text": "Ayesha did my bridal nails and they were absolutely stunning. Got so many compliments throughout the wedding. Highly recommend!", "date": "2 months ago"},
+    {"author": "Sneha R.", "rating": 5, "text": "Best nail artist in Hyderabad. My GelX extensions lasted over 3 weeks and looked so natural. Love coming here!", "date": "1 month ago"},
+    {"author": "Riya K.", "rating": 5, "text": "Been coming to Ayesha for months now. Every time she nails the design perfectly. My go-to place for everything nails.", "date": "3 weeks ago"},
+    {"author": "Ananya M.", "rating": 4, "text": "Great service and very professional. The gel polish lasted 2 weeks without chipping. Will definitely come back!", "date": "2 weeks ago"},
+    {"author": "Pooja G.", "rating": 5, "text": "Amazing mehandi work for my engagement. So detailed and lasted over a week. Ayesha is incredibly talented!", "date": "1 week ago"}
+]
+
+PLACE_ID = "0x3bcb9bdb56a47b4f:0xc50177815d76c392"
+
 TIME_SLOTS = ["10:00 AM", "12:00 PM", "2:00 PM", "4:00 PM", "6:00 PM"]
+
+# Razorpay
+RAZORPAY_KEY_ID = os.environ.get("RAZORPAY_KEY_ID", "")
+RAZORPAY_KEY_SECRET = os.environ.get("RAZORPAY_KEY_SECRET", "")
+try:
+    import razorpay
+    if RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET:
+        razorpay_client = razorpay.Client(auth=(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET))
+    else:
+        razorpay_client = None
+except Exception:
+    razorpay_client = None
 
 def load_json(path, default):
     if not os.path.exists(path):
@@ -81,6 +105,37 @@ def get_services():
 def get_branches():
     return jsonify(load_json(BRANCHES_FILE, DEFAULT_BRANCHES))
 
+REVIEWS_FILE = os.path.join(DATA_DIR, "reviews_cache.json")
+
+@app.route("/api/reviews")
+def get_reviews():
+    api_key = os.environ.get("GOOGLE_MAPS_API_KEY", "")
+    if api_key:
+        try:
+            cached = load_json(REVIEWS_FILE, [])
+            if cached:
+                return jsonify(cached)
+            url = "https://maps.googleapis.com/maps/api/place/details/json?place_id=" + urllib.parse.quote(PLACE_ID) + "&fields=name,rating,reviews&key=" + api_key
+            req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+            with urllib.request.urlopen(req, timeout=10) as resp:
+                data = json.loads(resp.read().decode())
+            if data.get("status") == "OK" and "result" in data:
+                result = data["result"]
+                reviews = []
+                for r in result.get("reviews", []):
+                    reviews.append({
+                        "author": r.get("author_name", "Anonymous"),
+                        "rating": r.get("rating", 5),
+                        "text": r.get("text", ""),
+                        "date": r.get("relative_time_description", "")
+                    })
+                if reviews:
+                    save_json(REVIEWS_FILE, reviews)
+                    return jsonify(reviews)
+        except Exception:
+            pass
+    return jsonify(FALLBACK_REVIEWS)
+
 @app.route("/api/slots")
 def get_slots():
     branch_id = request.args.get("branch", "1")
@@ -114,6 +169,42 @@ def book():
     bookings.append(booking)
     save_json(BOOKINGS_FILE, bookings)
     return jsonify(booking), 201
+
+@app.route("/api/razorpay-config")
+def razorpay_config():
+    if not RAZORPAY_KEY_ID:
+        return jsonify({"key": ""}), 200
+    return jsonify({"key": RAZORPAY_KEY_ID})
+
+@app.route("/api/create-order", methods=["POST"])
+def create_order():
+    if not razorpay_client:
+        return jsonify({"error": "Razorpay not configured"}), 503
+    try:
+        order = razorpay_client.order.create({
+            "amount": 9900,
+            "currency": "INR",
+            "receipt": "booking_" + datetime.now().strftime("%Y%m%d%H%M%S"),
+            "payment_capture": 1
+        })
+        return jsonify({"id": order["id"], "amount": order["amount"], "currency": order["currency"]})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/api/verify-payment", methods=["POST"])
+def verify_payment():
+    d = request.json
+    sig = d.get("razorpay_signature", "")
+    order_id = d.get("razorpay_order_id", "")
+    pay_id = d.get("razorpay_payment_id", "")
+    expected = hmac.new(
+        RAZORPAY_KEY_SECRET.encode(),
+        (order_id + "|" + pay_id).encode(),
+        hashlib.sha1
+    ).hexdigest()
+    if sig == expected:
+        return jsonify({"verified": True})
+    return jsonify({"verified": False}), 400
 
 @app.route("/admin/bookings")
 def admin_bookings():

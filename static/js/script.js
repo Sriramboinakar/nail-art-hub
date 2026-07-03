@@ -104,7 +104,8 @@ function closeLightbox() {
 }
 
 function openPayment() {
-  document.getElementById('payForm').style.display = 'block';
+  document.getElementById('razorpayBtnWrap').style.display = 'block';
+  document.getElementById('payProcessing').style.display = 'none';
   document.getElementById('paySuccess').style.display = 'none';
   document.getElementById('payModal').style.display = 'flex';
 }
@@ -113,40 +114,82 @@ function closeModal() {
   document.getElementById('payModal').style.display = 'none';
 }
 
-function processPayment() {
-  var btn = document.getElementById('processBtn');
-  btn.disabled = true;
-  btn.textContent = 'Processing...';
-  setTimeout(async function() {
-    try {
-      var svc = document.getElementById('bookService');
-      var br = document.getElementById('bookBranch');
-      await fetch('/api/book', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: document.getElementById('bookName').value.trim(),
-          phone: document.getElementById('bookPhone').value.trim(),
-          service_id: parseInt(svc.value),
-          service_name: svc.options[svc.selectedIndex].text,
-          branch_id: br.value,
-          branch_name: br.options[br.selectedIndex].text,
-          date: document.getElementById('bookDate').value,
-          time: (typeof selectedSlot !== 'undefined' ? selectedSlot : document.querySelector('.slot-btn.selected')?.textContent?.trim()) || '',
-          total: 99,
-          advance: 99,
-          payment_status: 'paid'
-        })
-      });
-      document.getElementById('payForm').style.display = 'none';
-      document.getElementById('paySuccess').style.display = 'block';
-      document.getElementById('confirmText').innerHTML = svc.options[svc.selectedIndex].text + '<br>' + document.getElementById('bookDate').value + ' at ' + (document.querySelector('.slot-btn.selected')?.textContent?.trim() || '');
-    } catch (e) {
-      alert('Error: ' + e.message);
+function getBookingData() {
+  var svc = document.getElementById('bookService');
+  var br = document.getElementById('bookBranch');
+  return {
+    name: document.getElementById('bookName').value.trim(),
+    phone: document.getElementById('bookPhone').value.trim(),
+    service_id: parseInt(svc.value),
+    service_name: svc.options[svc.selectedIndex].text,
+    branch_id: br.value,
+    branch_name: br.options[br.selectedIndex].text,
+    date: document.getElementById('bookDate').value,
+    time: (typeof selectedSlot !== 'undefined' ? selectedSlot : document.querySelector('.slot-btn.selected')?.textContent?.trim()) || ''
+  };
+}
+
+function confirmBooking() {
+  var d = getBookingData();
+  var svc = document.getElementById('bookService');
+  return fetch('/api/book', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: d.name, phone: d.phone, service_id: d.service_id, service_name: d.service_name, branch_id: d.branch_id, branch_name: d.branch_name, date: d.date, time: d.time, total: 99, advance: 99, payment_status: 'paid' })
+  });
+}
+
+function razorpayPay() {
+  fetch('/api/razorpay-config').then(function(r) { return r.json(); }).then(function(config) {
+    if (!config.key) {
+      alert('Razorpay is not configured. Please set RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET in Vercel environment variables.');
+      return;
     }
-    btn.disabled = false;
-    btn.textContent = 'Pay &#8377;99';
-  }, 1500);
+    document.getElementById('razorpayBtnWrap').style.display = 'none';
+    document.getElementById('payProcessing').style.display = 'block';
+    fetch('/api/create-order', { method: 'POST' }).then(function(r) { return r.json(); }).then(function(order) {
+      var d = getBookingData();
+      var rzp = new Razorpay({
+        key: config.key,
+        amount: order.amount,
+        currency: order.currency,
+        order_id: order.id,
+        name: 'Nail Art Hub',
+        description: d.service_name + ' | ' + d.date + ' ' + d.time,
+        image: '/static/images/logo.jpeg',
+        prefill: { name: d.name, contact: d.phone },
+        theme: { color: '#8B3A3F' },
+        handler: function(response) {
+          fetch('/api/verify-payment', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ razorpay_order_id: response.razorpay_order_id, razorpay_payment_id: response.razorpay_payment_id, razorpay_signature: response.razorpay_signature })
+          }).then(function(v) { return v.json(); }).then(function(verify) {
+            if (verify.verified) {
+              confirmBooking().then(function() {
+                document.getElementById('payProcessing').style.display = 'none';
+                document.getElementById('paySuccess').style.display = 'block';
+                document.getElementById('confirmText').innerHTML = d.service_name + '<br>' + d.date + ' at ' + d.time;
+              });
+            } else {
+              alert('Payment verification failed. Please contact support.');
+              document.getElementById('razorpayBtnWrap').style.display = 'block';
+              document.getElementById('payProcessing').style.display = 'none';
+            }
+          });
+        },
+        modal: { ondismiss: function() {
+          document.getElementById('razorpayBtnWrap').style.display = 'block';
+          document.getElementById('payProcessing').style.display = 'none';
+        }}
+      });
+      rzp.open();
+    }).catch(function(e) {
+      alert('Error creating payment: ' + e.message);
+      document.getElementById('razorpayBtnWrap').style.display = 'block';
+      document.getElementById('payProcessing').style.display = 'none';
+    });
+  });
 }
 
 function resetBooking() {
@@ -158,3 +201,40 @@ function resetBooking() {
   document.querySelectorAll('.slot-btn').forEach(function(s) { s.classList.remove('selected'); });
   if (typeof selectedSlot !== 'undefined') selectedSlot = null;
 }
+
+/* ===== Google Reviews ===== */
+(function() {
+  var carousel = document.getElementById('googleReviewsCarousel');
+  if (!carousel) return;
+  fetch('/api/reviews')
+    .then(function(r) { return r.json(); })
+    .then(function(reviews) {
+      carousel.innerHTML = '';
+      reviews.forEach(function(r) {
+        var card = document.createElement('div');
+        card.className = 'gr-card';
+        var starsHtml = '';
+        for (var i = 1; i <= 5; i++) {
+          starsHtml += '<span class="' + (i <= r.rating ? 'filled' : '') + '">&#9733;</span>';
+        }
+        var initial = r.author ? r.author.charAt(0).toUpperCase() : '?';
+        card.innerHTML =
+          '<div class="gr-card-author">' +
+            '<div class="gr-card-avatar">' + initial + '</div>' +
+            '<div>' +
+              '<div class="gr-card-name">' + escHtml(r.author) + '</div>' +
+              '<div class="gr-card-date">' + escHtml(r.date || '') + '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="gr-card-stars">' + starsHtml + '</div>' +
+          '<div class="gr-card-text">"' + escHtml(r.text) + '"</div>';
+        carousel.appendChild(card);
+      });
+    })
+    .catch(function() {});
+  function escHtml(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str || ''));
+    return div.innerHTML;
+  }
+})();
