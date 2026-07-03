@@ -195,7 +195,7 @@ function razorpayPay() {
 function upiPay() {
   var d = getBookingData();
   if (!d.name || !d.phone || !d.time) return;
-  var upiId = document.getElementById('upiIdDisplay') ? document.getElementById('upiIdDisplay').textContent.trim() : 'nailarthub20@upi';
+  var upiId = document.getElementById('upiIdDisplay') ? document.getElementById('upiIdDisplay').textContent.trim() : 'ayesha9133@ybl';
   var note = 'Nail%20Art%20Hub%20-%20' + encodeURIComponent(d.service_name) + '%20' + encodeURIComponent(d.date) + '%20' + encodeURIComponent(d.time);
   var upiLink = 'upi://pay?pa=' + encodeURIComponent(upiId) + '&am=99&cu=INR&tn=' + note;
   document.getElementById('razorpayBtnWrap').style.display = 'none';
