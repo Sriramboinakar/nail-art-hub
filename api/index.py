@@ -5,6 +5,8 @@ import os, urllib.request, urllib.parse
 import sys
 import hashlib
 import hmac
+import smtplib
+from email.mime.text import MIMEText
 
 IS_VERCEL = os.environ.get("VERCEL") == "1" or os.environ.get("VERCEL_ENV") is not None
 
@@ -69,6 +71,39 @@ try:
         razorpay_client = None
 except Exception:
     razorpay_client = None
+
+# SMTP
+SMTP_EMAIL = os.environ.get("SMTP_EMAIL", "")
+SMTP_PASSWORD = os.environ.get("SMTP_PASSWORD", "")
+
+def send_booking_email(booking):
+    if not SMTP_EMAIL or not SMTP_PASSWORD:
+        return
+    try:
+        body = """New Booking - Nail Art Hub
+
+Client: {name}
+Phone: {phone}
+Service: {service}
+Branch: {branch}
+Date: {date}
+Time: {time}
+Payment: {payment}
+Status: Confirmed
+""".format(name=booking["client_name"], phone=booking["phone"], service=booking["service_name"],
+           branch=booking["branch_name"], date=booking["date"], time=booking["time"],
+           payment=booking.get("payment_status", "pending"))
+        msg = MIMEText(body)
+        msg["Subject"] = "New Booking - {name} - {service}".format(name=booking["client_name"], service=booking["service_name"])
+        msg["To"] = SMTP_EMAIL
+        msg["From"] = SMTP_EMAIL
+        server = smtplib.SMTP("smtp.gmail.com", 587)
+        server.starttls()
+        server.login(SMTP_EMAIL, SMTP_PASSWORD)
+        server.send_message(msg)
+        server.quit()
+    except Exception:
+        pass
 
 def load_json(path, default):
     if not os.path.exists(path):
@@ -168,6 +203,7 @@ def book():
     }
     bookings.append(booking)
     save_json(BOOKINGS_FILE, bookings)
+    send_booking_email(booking)
     return jsonify(booking), 201
 
 @app.route("/api/razorpay-config")
